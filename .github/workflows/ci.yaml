@@ -25,6 +25,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Print version then sleep 30s
-        run: echo ${{ matrix.k8s }} && sleep 30
+      - name: Print version then sleep 5s
+        run: echo ${{ matrix.k8s }} && sleep 5
 
