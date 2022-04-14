@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - '*'
+  push:
+    branches:
+      - master
+
+
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  kubernetes:
+    name: Kubernetes
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        k8s: [v1.16.15, v1.18.19, v1.19.11, v1.20.7, v1.21.2, v1.22.4, v1.23.3]
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Print version then sleep 30s
+        run: echo ${{ matrix.k8s }} && sleep 30
